@@ -38,9 +38,9 @@ var get_diamond_object = function(sm)
   diamond.graphics.beginFill("red");
 
   diamond.graphics.moveTo(sm*8.333,sm*10.666); // starting drawing point
-  diamond.graphics.lineTo(sm*10.333,sm*13); // right diagonal down \
+  diamond.graphics.lineTo(sm*10.333,sm*13); // right diagonal down 
   diamond.graphics.lineTo(sm*8.333,sm*15.666); // left diagonal down /
-  diamond.graphics.lineTo(sm*6.333,sm*13); // left diagonal up \
+  diamond.graphics.lineTo(sm*6.333,sm*13); // left diagonal up 
   return diamond;
 }
 
@@ -212,7 +212,33 @@ function button(x,y,width,height,label,color,textSize) {
     user_button.addChild(background, text)
     return user_button;
 }
-	
+
+var assetPath = "../sounds/";	
+var sounds = [
+	{src:"../sounds/buttonClick.mp3", id:"idk"},
+	{src:"../sounds/cardFan1.wav", id:"1"},
+	{src:"../sounds/cardFan2.wav", id:"2"},
+	{src:"../sounds/cardOpenPackage1.wav", id:"3"},
+	{src:"../sounds/cardOpenPackage2.wav", id:"4"},
+	{src:"../sounds/cardPlace1.wav", id:"5"},
+	{src:"../sounds/cardPlace2.wav", id:"6"},
+	{src:"../sounds/cardPlace3.wav", id:"7"},
+	{src:"../sounds/cardPlace4.wav", id:"8"},
+	{src:"../sounds/cardShove1.wav", id:"9"},
+	{src:"../sounds/cardShove2.wav", id:"10"},
+	{src:"../sounds/cardShove3.wav", id:"11"},
+	{src:"../sounds/cardShove4.wav", id:"12"},
+	{src:"../sounds/cardSlide1.wav", id:"13"},
+	{src:"../sounds/cardSlide2.wav", id:"14"},
+	{src:"../sounds/cardSlide3.wav", id:"15"}
+];	
+createjs.Sound.alternateExtensions = ["mp3", "wav"];
+createjs.Sound.on("fileload", handleLoad);
+//createjs.Sound.registerSounds(sounds, assetPath);
+function handleLoad(event) {
+	myInstance = createjs.Sound.createInstance("idk");
+}
+
 /* All are buttons for the game */
 
 /* For this button, I'd like an alert popup to occur on-click, but I want
@@ -224,7 +250,9 @@ function helpButton() {
 	addToGame(help);
 	stage.update();
 	
+	
 	help.addEventListener("click", function(event) {
+		createjs.Sound.play("../sounds/buttonClick.mp3");
 		alert(" Royal Flush: A royal flush is an ace high straight flush. For example, A-K-Q-J-10 all of diamonds. \n Straight Flush: A straight flush is a five-card straight, all in the same suit. For example, 7-6-5-4-3 all of clubs. \n Four of a Kind: Four of a kind, or quads, are four cards of equal value. For example, four jacks. \n Full House: A full house contains a set (3) of cards of one value and a pair of another value. For example, Q-Q-Q-2-2. \n Flush: A flush is any 5 cards, all of the same suit. For example, K-Q-9-6-3 all of diamonds. \n Straight: Five cards of sequential value. Every possible straight will contain either a 5 or a 10. For example, 7-6-5-4-3 with different suits. \n Three of a Kind: Three cards of the same value. For example, three aces. \n Two Pairs: This is two cards of one value and another two cards of another value. For example, two jacks and two 8s. \n Pair: One pair is two cards of the same rank. For example, two queens. \n High Card: The hand with the highest card(s) wins. If two or more players hold the highest card, a kicker comes into play (see below).");
 	})
 }	
@@ -235,7 +263,8 @@ function optionsButton() {
 	stage.update();
 	
 	options.addEventListener("click", function(event) {
-		alert("Hi!");
+		createjs.Sound.play("../sounds/buttonClick.mp3");
+		alert("Options will come here soon.");
 	})	
 }
 
@@ -251,6 +280,7 @@ function leaveButton(currentPlayer) {
 	stage.update();
 	
 	leave.addEventListener("click", function(event) {
+		createjs.Sound.play("../sounds/buttonClick.mp3");
 		removeGameChildren();		
         game_init();
 		socket.emit("leave", currentPlayer.id);
@@ -261,9 +291,10 @@ function leaveButton(currentPlayer) {
 
 function callButton() {
 	var call = new button(295,475,35,18,"call","yellow",10);
-	//addToGame(call);
-	//stage.update();
+	addToGame(call);
+	stage.update();
 	call.addEventListener("click", function(event) {	
+		createjs.Sound.play("../sounds/buttonClick.mp3");
 		socket.emit("current turn");
 		socket.emit("buttons");
 	})
@@ -272,9 +303,10 @@ function callButton() {
 
 function raiseButton() {
 	var raise = new button(335,475,35,18,"raise", "yellow",10);
-	//addToGame(raise);
-    //stage.update();
+	addToGame(raise);
+    stage.update();
 	raise.addEventListener("click", function(event) {
+		createjs.Sound.play("../sounds/buttonClick.mp3");
 		socket.emit("current turn");
 		socket.emit("buttons");
 		console.log("Pressing raise");
@@ -284,9 +316,10 @@ function raiseButton() {
 
 function foldButton() {
 	var fold = new button(375,475,35,18,"fold", "yellow",10);
-	//addToGame(fold);
-	//stage.update();
+	addToGame(fold);
+	stage.update();
 	fold.addEventListener("click", function(event) {
+		createjs.Sound.play("../sounds/buttonClick.mp3");
 		socket.emit("current turn");
 		socket.emit("buttons");
 	})
@@ -300,6 +333,7 @@ function startButton() {
 	stage.update();
 	
 	start.addEventListener("click", function(event) {
+		createjs.Sound.play("../sounds/buttonClick.mp3");
         removeMenuChildren();
         lobby();
 	})
@@ -311,6 +345,7 @@ function readyButton() {
 	stage.update();
 	
 	ready.addEventListener("click", function(event) {
+		createjs.Sound.play("../sounds/buttonClick.mp3");
         deleteItemFromGame(ready);
         socket.emit("ready");
 	})
@@ -323,6 +358,7 @@ function againButton() {
 	
 	again.addEventListener("click", function(event) {
 		
+		createjs.Sound.play("../sounds/buttonClick.mp3");
 		for (var i = 0; i < 13; i ++) {
 			var shape = stage.getChildByName("tableCards");
 			stage.removeChild(shape);
