@@ -423,6 +423,8 @@ function menu() {
   addToMenu(title);
   addToMenu(subtitle);
   startButton();
+  soundOff();
+  soundOn();
   // update to show title and subtitle
   stage.update();
 }
@@ -501,6 +503,9 @@ function lobby() {
    //pokerChip(490, 398);
    pokertable();
    paint_deck();
+   loadHandler(event);
+   soundOff();
+   soundOn();
    optionsButton();
    helpButton();
    leaveButton(currentPlayer);
@@ -827,7 +832,7 @@ function clientAmounts(player, username, amount) {
 			chip_plate_background.graphics.beginFill("black").drawRect(326,175,88,17);
 
 		    chip_background.graphics.beginFill("blue").drawCircle(316,187,15);
-		    chip_background.graphics.beginFill("white").drawCircle(431,187,12);
+		    chip_background.graphics.beginFill("white").drawCircle(316,187,12);
 		    chip_background.graphics.beginFill("blue").drawCircle(316,187,9);
 		    chip_background.graphics.beginFill("blue").drawPolyStar(316,187,15,8,0.5,90);
 		    chip_background.graphics.beginFill("white").drawCircle(316,187,2);
